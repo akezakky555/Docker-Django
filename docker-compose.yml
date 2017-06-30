@@ -20,4 +20,6 @@ services:
 
   postgres:
     image: postgres
+    volumes:
+      - ./postgresdata:/var/lib/postgresql/data
 
