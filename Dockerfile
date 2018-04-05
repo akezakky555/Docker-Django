@@ -1,4 +1,4 @@
-FROM python:2.7.9
+FROM python:3.6.5
 
 ENV APPLICATION_ROOT /app/
 
@@ -7,7 +7,7 @@ RUN pip install --upgrade pip
 
 RUN mkdir -p $APPLICATION_ROOT
 WORKDIR $APPLICATION_ROOT
-ADD . $APPLICATION_ROOT
+ADD Apps $APPLICATION_ROOT
 
 
 RUN pip install -r requirements.txt

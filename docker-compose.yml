@@ -1,4 +1,4 @@
-version: '2'
+version: '3.4'
 
 services:
   nginx:
@@ -7,7 +7,7 @@ services:
     ports:
       - 8080:80
     volumes:
-      - ./Apps/static:/static
+      - ./static:/static
     depends_on:
       - app
 
@@ -15,6 +15,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    volumes:
+      - ./static:/app/static
     depends_on:
       - postgres
 
@@ -22,4 +24,7 @@ services:
     image: postgres
     volumes:
       - ./postgresdata:/var/lib/postgresql/data
-
+    environment:
+      - POSTGRES_DB=${DATABASE:-apps}
+#      - POSTGRES_USER=${USERNAME:-whoisit}
+#      - POSTGRES_PASSWORD=${PASSWORD:-Whatisit}
