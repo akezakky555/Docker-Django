@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  nginx:
+    build:
+      context: nginx/.
+    ports:
+      - 8080:80
+    volumes:
+      - ./static:/static
+    depends_on:
+      - app
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./static:/app/static
+      - ./Apps/Apps:/app/Apps
+      - ./log:/var/log
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    volumes:
+      - ./postgresdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${DATABASE:-apps}
+#      - POSTGRES_USER=${USERNAME:-whoisit}
+#      - POSTGRES_PASSWORD=${PASSWORD:-Whatisit}
